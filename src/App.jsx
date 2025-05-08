@@ -9,7 +9,7 @@ const App = () => {
   //ESTADO
   const [activeOnly, setActiveOnly] = useState(false); //empieza en false el checkbox
 
-  const filteredUsers = filterUser(USERS); //no se si estoy llamando a muchas funciones
+  const filteredUsers = filterUser(activeOnly); //no se si estoy llamando a muchas funciones
 
   return (
     <div className='general-container'>
@@ -70,7 +70,7 @@ const changeCheckbox = (activeOnly, setActiveOnly) => {
 
 const filterUser = activeOnly => {
   //si activeOnly es true, filtra los usuarios activos, sino devuelve todos
-  if (!activeOnly) {
+  if (activeOnly) {
     return USERS.filter(user => user.active);
   } else {
     return USERS;
