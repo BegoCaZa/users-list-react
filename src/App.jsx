@@ -2,40 +2,24 @@ import { useState } from 'react';
 import { USERS } from './constants/users-info';
 import { v4 } from 'uuid';
 
+let filteredUsers = USERS; //si esta en checked, rellena esta variable
+
 const App = () => {
   //ESTADO
   const [activeOnly, setActiveOnly] = useState(false); //empieza en false el checkbox
-
-  const changeCheckbox = setActiveOnly => {
-    setActiveOnly(!activeOnly); //cambia el estado del checkbox
-  };
-
-  //filtro de usuarios
-  let filteredUsers = USERS; //si esta en checked, rellena esta variable
-  if (activeOnly) {
-    filteredUsers = USERS.filter(user => user.active);
-  }
-
-  const userStateClass = user => {
-    if (user.active) {
-      return 'active';
-    } else {
-      return 'inactive';
-    }
-  };
 
   return (
     <div className='general-container'>
       <div className='header'>
         <h1>Listado de usuarios</h1>
         <div className='filter-container'>
-          <input type='text' />
+          <input type='text' id='text-search' onChange={() => compare} />
           <div className='checkbox-container'>
             <label htmlFor='active-check'>Solo activos</label>
             <input
               type='checkbox'
               id='active-check'
-              onClick={() => changeCheckbox(setActiveOnly)}
+              onClick={() => changeCheckbox(activeOnly, setActiveOnly)}
             />
           </div>
 
@@ -67,6 +51,25 @@ const App = () => {
       </div>
     </div>
   );
+};
+
+const changeCheckbox = (activeOnly, setActiveOnly) => {
+  setActiveOnly(!activeOnly); //cambia el estado del checkbox
+
+  //filtro de usuarios
+  if (!activeOnly) {
+    filteredUsers = USERS.filter(user => user.active);
+  } else {
+    filteredUsers = USERS;
+  }
+};
+
+const userStateClass = user => {
+  if (user.active) {
+    return 'active';
+  } else {
+    return 'inactive';
+  }
 };
 
 export default App;
