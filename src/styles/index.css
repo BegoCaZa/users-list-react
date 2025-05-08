@@ -27,4 +27,110 @@ nav ul {
 body {
   margin: 0;
   font-family: sans-serif;
+  background-color: aliceblue;
+}
+
+.general-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  gap: 1rem;
+  padding: 1.875rem;
+}
+
+@media screen and (min-width: 768px) {
+  .general-container {
+    margin-inline: auto;
+    width: 60%;
+  }
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.filter-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+
+/* .chechbox-container {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  gap: 10px;
+} */
+
+.user-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: 0.9375rem;
+}
+
+.user-card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.625rem;
+  width: 100%;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 0.625rem;
+  padding: 0.625rem;
+}
+
+.user-image-info-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.625rem;
+}
+.user-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.name {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.username {
+  font-size: 12px;
+  margin: 0;
+}
+
+.details-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+}
+
+.active {
+  color: green;
+}
+
+.inactive {
+  color: red;
 }

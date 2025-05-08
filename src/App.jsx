@@ -12,13 +12,16 @@ const App = () => {
   };
 
   return (
-    <div className='general-Container'>
+    <div className='general-container'>
       <div className='header'>
         <h1>Listado de usuarios</h1>
         <div className='filter-container'>
           <input type='text' />
-          <input type='checkbox' id='active-check' />
-          <label htmlFor='active-check'>Solo activos</label>
+          <div className='checkbox-container'>
+            <label htmlFor='active-check'>Solo activos</label>
+            <input type='checkbox' id='active-check' />
+          </div>
+
           <select>
             <option value='default'>Por Defecto</option>
             <option value='name'>Por Nombre</option>
@@ -28,15 +31,18 @@ const App = () => {
       <div className='user-list'>
         {USERS.map(user => (
           <div className='user-card' key={v4()}>
-            <img src={user.profileImage} className='user-image' />
-            <div className='user-info'>
-              <h2>{user.name}</h2>
-              <span>@{user.username}</span>
+            <div className='user-image-info-container'>
+              <img src={user.profileImage} className='user-image' />
+              <div className='user-info'>
+                <h2 className='name'>{user.name}</h2>
+                <span className='username'>@{user.username}</span>
+              </div>
             </div>
             <div className='details-container'>
-              <p className={userStateClass}>
+              <p className={userStateClass(user)}>
                 {user.active ? 'Activo' : 'Inactivo'}
               </p>
+              {/* debe RECIBIR y enviar a la funcion para que lea la clase */}
               <button className='details-button'>Ver Detalles</button>
             </div>
           </div>
