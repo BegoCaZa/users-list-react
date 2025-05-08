@@ -3,7 +3,13 @@ import { USERS } from './constants/users-info';
 import { v4 } from 'uuid';
 
 const App = () => {
+  //ESTADO
   const [activeOnly, setActiveOnly] = useState(false); //empieza en false el checkbox
+
+  const changeCheckbox = setActiveOnly => {
+    setActiveOnly(!activeOnly); //cambia el estado del checkbox
+  };
+
   //filtro de usuarios
   let filteredUsers = USERS; //si esta en checked, rellena esta variable
   if (activeOnly) {
@@ -26,7 +32,11 @@ const App = () => {
           <input type='text' />
           <div className='checkbox-container'>
             <label htmlFor='active-check'>Solo activos</label>
-            <input type='checkbox' id='active-check' />
+            <input
+              type='checkbox'
+              id='active-check'
+              onClick={() => changeCheckbox(setActiveOnly)}
+            />
           </div>
 
           <select>
