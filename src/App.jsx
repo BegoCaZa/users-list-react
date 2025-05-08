@@ -7,9 +7,9 @@ import { v4 } from 'uuid';
 
 const App = () => {
   //ESTADO
-  const [activeOnly, setActiveOnly] = useState(false); //empieza en false el checkbox
+  const [state, setActiveOnly] = useState(false); //empieza en false el checkbox
 
-  const filteredUsers = filterUser(activeOnly); //no se si estoy llamando a muchas funciones
+  const filteredUsers = filterUser(state); //no se si estoy llamando a muchas funciones
 
   return (
     <div className='general-container'>
@@ -22,7 +22,7 @@ const App = () => {
             <input
               type='checkbox'
               id='active-check'
-              onClick={() => changeCheckbox(activeOnly, setActiveOnly)}
+              onClick={() => changeCheckbox(state, setActiveOnly)}
             />
           </div>
 
@@ -56,9 +56,9 @@ const App = () => {
   );
 };
 
-const changeCheckbox = (activeOnly, setActiveOnly) => {
-  setActiveOnly(!activeOnly); //cambia el estado del checkbox
-  return activeOnly; //devuelve el estado del checkbox
+const changeCheckbox = (state, setActiveOnly) => {
+  setActiveOnly(!state); //cambia el estado del checkbox
+  return state; //devuelve el estado del checkbox
 
   // //filtro de usuarios
   // if (!activeOnly) {
@@ -68,9 +68,9 @@ const changeCheckbox = (activeOnly, setActiveOnly) => {
   // }
 };
 
-const filterUser = activeOnly => {
+const filterUser = state => {
   //si activeOnly es true, filtra los usuarios activos, sino devuelve todos
-  if (activeOnly) {
+  if (state) {
     return USERS.filter(user => user.active);
   } else {
     return USERS;
