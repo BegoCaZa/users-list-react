@@ -3,6 +3,13 @@ import { USERS } from './constants/users-info';
 import { v4 } from 'uuid';
 
 const App = () => {
+  const [activeOnly, setActiveOnly] = useState(false); //empieza en false el checkbox
+  //filtro de usuarios
+  let filteredUsers = USERS; //si esta en checked, rellena esta variable
+  if (activeOnly) {
+    filteredUsers = USERS.filter(user => user.active);
+  }
+
   const userStateClass = user => {
     if (user.active) {
       return 'active';
@@ -29,7 +36,7 @@ const App = () => {
         </div>
       </div>
       <div className='user-list'>
-        {USERS.map(user => (
+        {filteredUsers.map(user => (
           <div className='user-card' key={v4()}>
             <div className='user-image-info-container'>
               <img src={user.profileImage} className='user-image' />
