@@ -2,11 +2,14 @@ import { useState } from 'react';
 import { USERS } from './constants/users-info';
 import { v4 } from 'uuid';
 
-let filteredUsers = USERS; //si esta en checked, rellena esta variable
+//let filteredUsers = USERS; //si esta en checked, rellena esta variable
+//creo que puede hacerse con filter pero no entiendo como
 
 const App = () => {
   //ESTADO
   const [activeOnly, setActiveOnly] = useState(false); //empieza en false el checkbox
+
+  const filteredUsers = filterUser(USERS); //no se si estoy llamando a muchas funciones
 
   return (
     <div className='general-container'>
@@ -55,12 +58,22 @@ const App = () => {
 
 const changeCheckbox = (activeOnly, setActiveOnly) => {
   setActiveOnly(!activeOnly); //cambia el estado del checkbox
+  return activeOnly; //devuelve el estado del checkbox
 
-  //filtro de usuarios
+  // //filtro de usuarios
+  // if (!activeOnly) {
+  //   filteredUsers = USERS.filter(user => user.active);
+  // } else {
+  //   filteredUsers = USERS;
+  // }
+};
+
+const filterUser = activeOnly => {
+  //si activeOnly es true, filtra los usuarios activos, sino devuelve todos
   if (!activeOnly) {
-    filteredUsers = USERS.filter(user => user.active);
+    return USERS.filter(user => user.active);
   } else {
-    filteredUsers = USERS;
+    return USERS;
   }
 };
 
