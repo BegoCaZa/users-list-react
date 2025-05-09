@@ -7,28 +7,41 @@ import { v4 } from 'uuid';
 
 const App = () => {
   //ESTADO
-  const [state, setActiveOnly] = useState(false); //empieza en false el checkbox
+  const [onlyActive, setOnlyActive] = useState(false); //empieza en false el checkbox
+  const [search, setSearch] = useState(''); //empieza vacio
+  const [sort, setSort] = useState('default');
 
-  const filteredUsers = filterUser(state); //no se si estoy llamando a muchas funciones
+  //nuevos filtro
+
+  const usersByActive = filterUserByActive(onlyActive);
+  const filteredByName = filterByName(usersByActive, search);
+
+  //filtro final
+  const filteredUsers = sortByName(filteredByName, sort);
+
+  console.log(search);
 
   return (
     <div className='general-container'>
       <div className='header'>
         <h1>Listado de usuarios</h1>
         <div className='filter-container'>
-          <input type='text' id='text-search' onChange={() => compare} />
+          <input
+            type='text'
+            onChange={event => setSearch(event.target.value)}
+          />
           <div className='checkbox-container'>
             <label htmlFor='active-check'>Solo activos</label>
             <input
               type='checkbox'
               id='active-check'
-              onClick={() => changeCheckbox(state, setActiveOnly)}
+              onClick={() => changeCheckbox(onlyActive, setOnlyActive)}
             />
           </div>
 
-          <select>
-            <option value='default'>Por Defecto</option>
-            <option value='name'>Por Nombre</option>
+          <select onChange={event => setSort(event.target.value)}>
+            <option value='default'>Default</option>
+            <option value='name'>Name</option>
           </select>
         </div>
       </div>
@@ -56,25 +69,38 @@ const App = () => {
   );
 };
 
-const changeCheckbox = (state, setActiveOnly) => {
-  setActiveOnly(!state); //cambia el estado del checkbox
-  return state; //devuelve el estado del checkbox
-
-  // //filtro de usuarios
-  // if (!activeOnly) {
-  //   filteredUsers = USERS.filter(user => user.active);
-  // } else {
-  //   filteredUsers = USERS;
-  // }
+const changeCheckbox = (onlyActive, setOnlyActive) => {
+  setOnlyActive(!onlyActive); //cambia el estado del checkbox
 };
 
-const filterUser = state => {
-  //si activeOnly es true, filtra los usuarios activos, sino devuelve todos
-  if (state) {
-    return USERS.filter(user => user.active);
-  } else {
-    return USERS;
-  }
+const filterUserByActive = onlyActive => {
+  const filteredUsersByActive = onlyActive
+    ? USERS.filter(user => user.active)
+    : USERS;
+
+  return filteredUsersByActive;
+};
+
+const filterByName = (usersByActive, search) => {
+  const filteredUsers = search
+    ? usersByActive.filter(user =>
+        user.name.toLowerCase().includes(search.toLowerCase())
+      )
+    : usersByActive;
+
+  return filteredUsers;
+};
+
+// //filtro final
+// const filteredUsers = sortByName(filteredByName, sort);
+
+const sortByName = (filteredByName, sort) => {
+  const filteredUsers =
+    sort === 'name'
+      ? [...filteredByName].sort((a, b) => a.name.localeCompare(b.name))
+      : filteredByName;
+
+  return filteredUsers;
 };
 
 const userStateClass = user => {
