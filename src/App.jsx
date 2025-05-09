@@ -2,9 +2,6 @@ import { useState } from 'react';
 import { USERS } from './constants/users-info';
 import { v4 } from 'uuid';
 
-//let filteredUsers = USERS; //si esta en checked, rellena esta variable
-//creo que puede hacerse con filter pero no entiendo como
-
 const App = () => {
   //ESTADO
   const [onlyActive, setOnlyActive] = useState(false); //empieza en false el checkbox
@@ -91,10 +88,8 @@ const filterByName = (usersByActive, search) => {
   return filteredUsers;
 };
 
-// //filtro final
-// const filteredUsers = sortByName(filteredByName, sort);
-
 const sortByName = (filteredByName, sort) => {
+  //debo hacer una copia para que no me rompa el array principal de los usuarios
   const filteredUsers =
     sort === 'name'
       ? [...filteredByName].sort((a, b) => a.name.localeCompare(b.name))
